@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import { navigate } from "gatsby";
+import { useNavigate } from "react-router-dom";
 import { getIsNew, storeNew } from "../utils/methods";
 import { AppContext } from "../layouts";
 import WelcomeModal from "./WelcomeModal";
 import Camera from "./Camera";
 
 const Home = () => {
+  const navigate = useNavigate();
   const [isNew, setNew] = useState(getIsNew());
 
   const { image, setImage } = useContext(AppContext);

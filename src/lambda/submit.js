@@ -1,7 +1,5 @@
 const axios = require("axios");
 const AWS = require("aws-sdk");
-import { URLSearchParams } from "url";
-global.URLSearchParams = URLSearchParams;
 
 exports.handler = async function(event, context, callback) {
   const handleRequest = async () => {

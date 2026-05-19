@@ -1,6 +1,10 @@
 [dev]
   base = "/"
-  publish = "/public"
+  publish = "dist"
+  command = "vite"
+  targetPort = 5173
 
 [build]
-  functions = "lambda"
+  command = "vite build"
+  publish = "dist"
+  functions = "src/lambda"

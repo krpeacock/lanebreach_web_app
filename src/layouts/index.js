@@ -1,8 +1,6 @@
 import React from "react";
-import { navigate } from "gatsby";
 import styled, { createGlobalStyle } from "styled-components";
 import store from "store";
-import { Helmet } from "react-helmet";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import gif from "../images/Smile.gif";
 import { getSubmissions } from "../utils/methods";
@@ -157,7 +155,7 @@ class Layout extends React.Component {
         category: "Private vehicle"
       },
       () => {
-        navigate("/");
+        this.props.navigate("/");
       }
     );
   }
@@ -209,12 +207,6 @@ class Layout extends React.Component {
     };
     return (
       <Container>
-        <Helmet>
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
-          />
-        </Helmet>
         <CssBaseline />
         <GlobalStyle />
         <AppContext.Provider value={sharedContext}>
@@ -246,7 +238,7 @@ class Layout extends React.Component {
           <button
             type="button"
             aria-labelledby="homeScreen camera"
-            onClick={() => navigate("/")}
+            onClick={() => this.props.navigate("/")}
           >
             <svg
               aria-hidden="true"
@@ -268,7 +260,7 @@ class Layout extends React.Component {
           <button
             type="button"
             aria-labelledby="submissions"
-            onClick={() => navigate("/submissions")}
+            onClick={() => this.props.navigate("/submissions")}
           >
             <svg
               aria-hidden="true"
@@ -289,7 +281,7 @@ class Layout extends React.Component {
           <button
             type="button"
             aria-labelledby="settingsScreen"
-            onClick={() => navigate("/user")}
+            onClick={() => this.props.navigate("/user")}
           >
             <svg
               aria-hidden="true"

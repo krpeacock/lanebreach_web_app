@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
-import Layout, { AppContext } from "../layouts";
-import { navigate } from "gatsby";
+import { AppContext } from "../layouts";
+import { useNavigate } from "react-router-dom";
 import { Main } from "./UserForm";
 import { submitRequest } from "../utils/methods";
-import { Link } from "@reach/router";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -46,6 +45,7 @@ const StyledForm = styled.form`
 `;
 
 const ComplaintForm = () => {
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const [init, setInit] = useState(false);
   const [other, setOther] = useState("Other");
