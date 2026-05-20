@@ -146,14 +146,16 @@ const ComplaintForm = () => {
             Share location
           </Button>
         ) : (
-          <Button
-            variant="outlined"
-            color="primary"
-            type="submit"
-          >
-            Submit
-          </Button>
+          <p>Location captured</p>
         )}
+        <Button
+          variant="outlined"
+          color="primary"
+          type="submit"
+          disabled={!position}
+        >
+          Submit
+        </Button>
       </StyledForm>
       <div>
         {image ? (
