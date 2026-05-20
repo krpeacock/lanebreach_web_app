@@ -1,11 +1,9 @@
 const axios = require("axios");
-const AWS = require("aws-sdk");
+const { getStore } = require("@netlify/blobs");
 
 exports.handler = async function(event, context, callback) {
   const handleRequest = async () => {
-    const accessKeyId = process.env.ACCESS_KEY;
-    const secretAccessKey = process.env.SECRET_KEY;
-    const url = process.env.GATSBY_311_URL;
+    const url = process.env.VITE_311_URL;
     const apiKey = process.env.API_KEY;
     const data = JSON.parse(event.body);
     const {
@@ -20,36 +18,15 @@ exports.handler = async function(event, context, callback) {
     } = data;
 
     const response = new Promise(async (resolveResponse, rejectResponse) => {
-      let media_url;
-
-      var buf = new Buffer.from(
+      const buf = Buffer.from(
         image.replace(/^data:image\/\w+;base64,/, ""),
         "base64"
       );
 
-      var s3 = new AWS.S3({
-        accessKeyId,
-        secretAccessKey,
-        region: "us-west-1"
-      });
-      var params = {
-        Bucket: "lane-breach",
-        Key: `311-sf/temp-images/${Date.now()}-img.jpg`,
-        Body: buf,
-        ContentEncoding: "base64",
-        ContentType: "image/jpeg"
-      };
-      const upload = await new Promise((resolve, reject) => {
-        s3.upload(params, function(err, response) {
-          if (err) {
-            handleReject(data);
-            reject(err);
-          }
-          resolve(response);
-        });
-      });
-
-      media_url = upload?.Location;
+      const store = getStore("images");
+      const key = `311-sf/temp-images/${Date.now()}-img.jpg`;
+      await store.set(key, buf, { contentType: "image/jpeg" });
+      const media_url = store.getPublicUrl(key);
       console.log(media_url);
 
       const domain = `${url}/open311/v2/requests.json`;

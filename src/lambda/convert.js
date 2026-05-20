@@ -9,7 +9,7 @@ exports.handler = async function(event, context, callback) {
       body: `Something went wrong parsing your request: ${err}`
     });
   }
-  const url = process.env.GATSBY_311_URL;
+  const url = process.env.VITE_311_URL;
   const data = JSON.parse(event.body);
 
   console.log("Data: ", data);

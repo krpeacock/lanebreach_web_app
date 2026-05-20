@@ -19,7 +19,7 @@ const PencilDiv = styled.div`
 
 const PencilBanner = () => {
   // TODO: Make this message environment dependent
-  const message = process.env.GATSBY_PENCIL_MESSAGE;
+  const message = import.meta.env.VITE_PENCIL_MESSAGE;
 
   console.log(message);
 

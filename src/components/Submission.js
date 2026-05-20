@@ -69,7 +69,7 @@ const Submission = ({ submission, submissions }) => {
     updated_datetime
   } = submission;
   const [pending, setPending] = useState(false);
-  const domain = process.env.GATSBY_311_URL;
+  const domain = import.meta.env.VITE_311_URL;
   const isConverted = !submission.token || service_request_id;
   const { setSubmissions } = useContext(AppContext);
   return (
