@@ -8,3 +8,8 @@
   command = "vite build"
   publish = "dist"
   functions = "src/lambda"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
