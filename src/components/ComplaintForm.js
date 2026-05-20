@@ -47,7 +47,6 @@ const StyledForm = styled.form`
 const ComplaintForm = () => {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
-  const [init, setInit] = useState(false);
   const [other, setOther] = useState("Other");
   const [position, setPosition] = useState();
   const lat = position?.coords?.latitude;
@@ -87,18 +86,16 @@ const ComplaintForm = () => {
     }
   };
 
-  useEffect(() => {
-    if (!init) {
-      setInit(true);
-      try {
-        window.navigator.geolocation.getCurrentPosition(position => {
-          setPosition(position);
-        });
-      } catch (err) {
-        console.error(err);
-      }
+  const requestLocation = () => {
+    try {
+      window.navigator.geolocation.getCurrentPosition(position => {
+        setPosition(position);
+      });
+    } catch (err) {
+      console.error(err);
     }
-  });
+  };
+
   return (
     <Main>
       <h2>Submission</h2>
@@ -139,15 +136,24 @@ const ComplaintForm = () => {
             onChange={e => setDescription(e.target.value)}
           />
         </FormControl>
-        <Button
-          variant="outlined"
-          color="primary"
-          type="submit"
-          disabled={!position}
-        >
-          Submit
-        </Button>
-        {!position ? <p>Please wait while we identify your location</p> : null}
+        {!position ? (
+          <Button
+            variant="outlined"
+            color="primary"
+            type="button"
+            onClick={requestLocation}
+          >
+            Share location
+          </Button>
+        ) : (
+          <Button
+            variant="outlined"
+            color="primary"
+            type="submit"
+          >
+            Submit
+          </Button>
+        )}
       </StyledForm>
       <div>
         {image ? (
